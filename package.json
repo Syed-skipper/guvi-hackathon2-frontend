@@ -8,6 +8,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.10.9",
+    "@mui/joy": "^5.0.0-alpha.64",
     "@mui/material": "^5.10.10",
     "@mui/x-date-pickers-pro": "^5.0.5",
     "@testing-library/jest-dom": "^5.16.5",

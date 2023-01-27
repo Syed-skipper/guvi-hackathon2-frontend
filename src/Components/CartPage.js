@@ -21,45 +21,61 @@ function Cart() {
       });
       var data = response.data;
       setItem(data);
-      console.log();
     }
     getProducts();
   });
+  async function deletefromCart(row) {
+    const response = await axios.delete(`${env.api}/addcart/delete/${row.id}`);
+    console.log(response);
+  }
   return (
     <>
       <NavBar />
       <br />
-
-      <div style={{ marginBottom: "10px" }}>
-        {item.map((row) => (
-          <Card sx={{ maxWidth: 500 }} key={row.name} >
-            <CardMedia
-              component="img"
-              alt={row.productname}
-              image={row.producturl}
-              style={{
-                objectFit: "contain",
-                maxHeight: "140px",
-                maxWidth: "100%",
-              }}
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h7" component="div">
-                {row.productname}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                ₹{row.price}
-              </Typography>
-            </CardContent>
-            <CardActions
-              style={{ display: "flex", justifyContent: "space-around" }}
-            >
-              <Button size="small">Buy Now</Button>
-              <Button size="small">Remove</Button>
-            </CardActions>
-          </Card>
-        ))}
-      </div>
+      {item.length > 0 ? (
+        <div style={{ marginBottom: "10px" }}>
+          {item.map((row) => (
+            <Card sx={{ maxWidth: 500 }} key={row.name}>
+              <CardMedia
+                component="img"
+                alt={row.productname}
+                image={row.producturl}
+                style={{
+                  objectFit: "contain",
+                  maxHeight: "140px",
+                  maxWidth: "100%",
+                }}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h7" component="div">
+                  {row.productname}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  ₹{row.price}
+                </Typography>
+              </CardContent>
+              <CardActions
+                style={{ display: "flex", justifyContent: "space-around" }}
+              >
+                <Button size="small">Buy Now</Button>
+                <Button size="small" onClick={() => deletefromCart(row)}>
+                  Remove
+                </Button>
+              </CardActions>
+            </Card>
+          ))}
+        </div>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center  ",
+          }}
+        >
+          <h1>No items in cart</h1>
+        </div>
+      )}
     </>
   );
 }
