@@ -1,4 +1,6 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
+import axios from "axios";
+import { env } from "./Config";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -8,6 +10,19 @@ import { Typography } from "@mui/material";
 
 function NavBar() {
   const navigate = useNavigate();
+  const [initial, setinitial] = useState(0)
+  useEffect(() => {
+    async function getProducts() {
+      const response = await axios.get(`${env.api}/addcart/read`, {
+        headers: {
+          accesstoken: localStorage.getItem("token"),
+        },
+      });
+      var data = response.data
+      setinitial(data.length)
+    }
+    getProducts();
+  });
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -50,7 +65,7 @@ function NavBar() {
             <Button color="inherit" onClick={() => handleCart()}>
               <i class="fa-solid fa-cart-shopping"></i>&nbsp; Cart&nbsp;
               <sup>
-                <b></b>
+                <b>{initial}</b>
               </sup>
             </Button>
             <Button color="inherit" onClick={() => handleDashboard()}>
