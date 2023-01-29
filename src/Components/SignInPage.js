@@ -21,7 +21,10 @@ function LoginComponent() {
     });
     console.log(user);
     if (user.data) {
-      localStorage.setItem("token", user.data);
+      localStorage.setItem("token", user.data[0]);
+      localStorage.setItem("userid",user.data[1]);
+      localStorage.setItem("role",user.data[2]);
+      localStorage.setItem("name",user.data[3])
       navigate("/homepage");
     }
   }catch(error){

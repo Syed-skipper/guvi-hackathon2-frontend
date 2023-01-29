@@ -21,7 +21,7 @@ function GetProduct() {
     }
 
     getProducts();
-  });
+  },[]);
 
   const handleDelete = async (id) => {
     try {

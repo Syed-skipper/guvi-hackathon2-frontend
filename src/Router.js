@@ -10,6 +10,7 @@ import PasswordReset from "./Components/PasswordReset";
 import Dashboard from "./Components/Dashboard";
 import Cart from "./Components/CartPage";
 import DeleteProduct from './Components/DeleteProduct'
+import Checkout from "./Components/CheckoutPage";
 
 function RouterComponent() {
   return (
@@ -26,6 +27,7 @@ function RouterComponent() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/deleteproduct" element={<DeleteProduct/>}/>
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout/>}/>
         </Routes>
       </div>
     </>

@@ -7,12 +7,33 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar from "./NavBar";
 import DeleteProduct from "./DeleteProduct";
-import{ env} from './Config'
+import { env } from "./Config";
+import * as Joi from "@hapi/joi";
 
 function AddProduct() {
- 
   const navigate = useNavigate();
-
+  const schema = Joi.object({
+    producturl: Joi.string()
+      .required()
+      .label("Product URL")
+      .error(new Error("Please enter a valid URL")),
+    productname: Joi.string()
+      .required()
+      .label("Product Name")
+      .error(new Error("Please enter a product name")),
+    price: Joi.number()
+      .required()
+      .label("Price")
+      .error(new Error("Please enter a valid price")),
+    quantity: Joi.number()
+      .required()
+      .label("Quantity")
+      .error(new Error("Please enter a valid quantity")),
+    type: Joi.string()
+      .required()
+      .label("Type")
+      .error(new Error("Please enter a valid type")),
+  });
   const [formData, setFormData] = useState({
     producturl: "",
     productname: "",
@@ -20,25 +41,32 @@ function AddProduct() {
     quantity: "",
     type: "",
   });
+
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const response = await axios.post(
-        `${env.api}/products/create`,
-        { products: { ...formData } },
-        { headers: { accesstoken: localStorage.getItem("token") } }
-      );
-      const notify = () =>
-      toast("Product Added Successfully", {
-        position: "top-right",
-        autoClose: 4000,
-      });
-      notify();
-      console.log(response);
-      setTimeout(() => {
-        navigate("/homepage");
-      }, 5000);
+      const result = schema.validate(formData, { abortEarly: false });
+      if (result.error) {
+        console.log(result.error);
+      } else {
+        const response = await axios.post(
+          `${env.api}/products/create`,
+          { products: { ...formData } },
+          { headers: { accesstoken: localStorage.getItem("token") } }
+        );
+        const notify = () =>
+          toast("Product Added Successfully", {
+            position: "top-right",
+            autoClose: 4000,
+          });
+        notify();
+        console.log(response);
+        setTimeout(() => {
+          navigate("/homepage");
+        }, 5000);
+      }
     } catch (error) {
+      console.log("On catch");
       console.log(error);
     }
   };
@@ -176,7 +204,6 @@ function AddProduct() {
                 }}
                 variant="contained"
                 type="submit"
-                
               >
                 Add
               </Button>
@@ -191,9 +218,9 @@ function AddProduct() {
               color: "black",
               fontWeight: "bolder",
               textAlign: "center",
-              
-              backgroundColor:'skyblue',
-              padding:"15px"
+
+              backgroundColor: "skyblue",
+              padding: "15px",
             }}
           >
             Delete Product

@@ -21,11 +21,13 @@ function Homepage() {
   });
   const [initial, setinitial] = useState(0);
   const addcart = async (row) => {
+    console.log(row)
     cart.productname = row.row.productname;
     cart.producturl = row.row.producturl;
     cart.price = row.row.price;
     cart.quantity = row.row.quantity;
     cart.type = row.row.type;
+    cart.userId = localStorage.getItem("userid")
     try {
       const response = await axios.post(`${env.api}/addcart/create`, {
         ...cart,
@@ -47,14 +49,8 @@ function Homepage() {
       setProduct(response.data);
       console.log()
     }
-    async function getUser() {
-      const response = await axios.get(`${env.api}/register/getuser`);
-      var userrole = response.data[0].role
-      localStorage.setItem("role",userrole)
-   }
     getProducts();
-    getUser();
-  });
+  },[]);
 
   return (
     <>
@@ -66,16 +62,17 @@ function Homepage() {
       >
         {product.map((row) => (
           <Grid item key={row._id}>
-            <Card sx={{ width: 350, height: 430 }}>
+            <Card sx={{ width: 350, height: 400 }} style={{border:'2px solid black' }}>
               <CardMedia
                 component="img"
-                height="200"
+                height="190"
                 image={row.producturl}
-                alt="green iguana"
+                alt={row.productname}
+                style={{objectFit:'contain',borderBottom:'2px solid black'}}
               />
               <CardContent>
                 <Typography
-                  sx={{ fontSize: 20 }}
+                  sx={{ fontSize: 18 }}
                   color="text.secondary"
                   gutterBottom
                 >
@@ -86,7 +83,7 @@ function Homepage() {
                   <strong> Price perday : {row.price} Rs</strong>
                 </Typography>
 
-                <Typography variant="body2" sx={{ fontSize: 15 }}>
+                <Typography variant="body2" sx={{ fontSize: 13 }}>
                   <strong>Quantity : {row.quantity}</strong>
                   <br />
                 </Typography>
