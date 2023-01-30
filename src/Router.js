@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import HomePage from "./Components/HomePage";
 import SignIn from "./Components/SignInPage";
 import AboutUs from "./Components/AboutUsPage";
@@ -16,6 +16,7 @@ function RouterComponent() {
   return (
     <>
       <div>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<SignIn />} />
           <Route path="/homepage" element={<HomePage />} />
@@ -29,6 +30,7 @@ function RouterComponent() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout/>}/>
         </Routes>
+        </BrowserRouter>
       </div>
     </>
   );

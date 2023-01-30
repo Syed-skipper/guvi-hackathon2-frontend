@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../App.css";
 import NavBar from "./NavBar";
 import { env } from "./Config";
@@ -10,12 +9,9 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { myContext } from "./Context";
 
 function Cart() {
   const [item, setItem] = useState([]);
-  let array = []
-  const navigate = useNavigate();
   useEffect(() => {
     async function getProducts() {
       const id = localStorage.getItem("userid");
@@ -45,17 +41,12 @@ function Cart() {
       console.log(error);
     }
   }
-  const checkout = async (row) => {
-    array.push(row)
-    console.log(array)
-    navigate("/checkout");
-  }
+ 
 
   return (
     <>
       <NavBar />
       <br />
-      <myContext.Provider value={{array}}>
       {item.length > 0 ? (
         <div style={{ marginBottom: "10px" }}>
           {item.map((row) => (
@@ -81,7 +72,7 @@ function Cart() {
               <CardActions
                 style={{ display: "flex", justifyContent: "space-around" }}
               >
-                <Button size="small" onClick={() => checkout(row)}>Buy Now</Button>
+                <Button size="small" >Buy Now</Button>
                 <Button size="small" onClick={() => deletefromCart(row)}>
                   Remove
                 </Button>
@@ -100,7 +91,6 @@ function Cart() {
           <h1>No items in cart</h1>
         </div>
       )}
-      </myContext.Provider>
     </>
   );
 }

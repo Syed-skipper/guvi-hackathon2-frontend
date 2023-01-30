@@ -11,6 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import IconButton from "@mui/material/IconButton";
+import '../css/Navbar.css'
 
 function NavBar() {
   const navigate = useNavigate();
@@ -64,15 +65,27 @@ function NavBar() {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="sticky">
-          <Toolbar style={{ justifyContent: "space-around" }}>
+        <AppBar position="sticky" className="Appbar">
+          <Toolbar
+            style={{ justifyContent: "space-around" }}
+            className="Toolbar"
+          >
             <Typography
               style={{ fontWeight: "bold", fontSize: "28px", color: "#F1C40F" }}
             >
               CamRental
             </Typography>
-             <input type="text" placeholder="Search" style={{width:'350px', height:'35px'}}/>
-            <Button color="inherit" onClick={() => handleHome()}>
+            <input
+              className="input"
+              type="text"
+              placeholder="Search"
+              style={{ width: "350px", height: "35px" }}
+            />
+            <Button
+              color="inherit"
+              onClick={() => handleHome()}
+              className="Button"
+            >
               Product
             </Button>
             <Button color="inherit" onClick={() => handleCart()}>
@@ -97,14 +110,16 @@ function NavBar() {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <AccountCircle />
+                <AccountCircle className="AccountCircle" />
               </IconButton>
               <p
+                className="p"
                 style={{ padding: "7px", marginTop: "4px", paddingLeft: "0px" }}
               >
                 {localStorage.getItem("name")}
               </p>
               <Menu
+                className="Menu"
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{

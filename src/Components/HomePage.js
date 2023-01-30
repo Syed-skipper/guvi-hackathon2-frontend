@@ -14,20 +14,20 @@ function Homepage() {
   const [product, setProduct] = useState([]);
   const [cart, setCart] = useState({
     productname: "",
-    producturl:'',
+    producturl: "",
     price: "",
     quantity: "",
     type: "",
   });
   const [initial, setinitial] = useState(0);
   const addcart = async (row) => {
-    console.log(row)
+    console.log(row);
     cart.productname = row.row.productname;
     cart.producturl = row.row.producturl;
     cart.price = row.row.price;
     cart.quantity = row.row.quantity;
     cart.type = row.row.type;
-    cart.userId = localStorage.getItem("userid")
+    cart.userId = localStorage.getItem("userid");
     try {
       const response = await axios.post(`${env.api}/addcart/create`, {
         ...cart,
@@ -47,10 +47,10 @@ function Homepage() {
         },
       });
       setProduct(response.data);
-      console.log()
+      console.log();
     }
     getProducts();
-  },[]);
+  }, []);
 
   return (
     <>
@@ -62,32 +62,41 @@ function Homepage() {
       >
         {product.map((row) => (
           <Grid item key={row._id}>
-            <Card sx={{ width: 350, height: 400 }} style={{border:'2px solid black' }}>
+            <Card
+              sx={{ width: 350, height: 400 }}
+              style={{ border: "2px solid black" }}
+            >
               <CardMedia
                 component="img"
                 height="190"
                 image={row.producturl}
                 alt={row.productname}
-                style={{objectFit:'contain',borderBottom:'2px solid black'}}
+                style={{
+                  objectFit: "contain",
+                  borderBottom: "2px solid black",
+                }}
               />
               <CardContent>
                 <Typography
-                  sx={{ fontSize: 18 }}
-                  color="text.secondary"
                   gutterBottom
+                  style={{
+                    fontSize: "15px",
+                    fontFamily: "lato",
+                    fontWeight: "600",
+                    whiteSpace: "normal",
+                    lineHeight: "1.6",
+                    color: "black",
+                  }}
                 >
                   <strong>{row.productname}</strong>
                 </Typography>
-
-                <Typography sx={{ mb: 1.5 }}>
-                  <strong> Price perday : {row.price} Rs</strong>
-                </Typography>
-
+                <Typography>{row.description}</Typography>
                 <Typography variant="body2" sx={{ fontSize: 13 }}>
                   <strong>Quantity : {row.quantity}</strong>
                   <br />
                 </Typography>
-                <br />
+                <div style={{display:'flex',justifyContent:'space-between'}}>
+                <Typography sx={{ mb: 1 }}>₹{row.price}</Typography>
                 <Button
                   variant="contained"
                   style={{
@@ -99,6 +108,7 @@ function Homepage() {
                 >
                   Add to Cart
                 </Button>
+                </div>
               </CardContent>
               <CardActions></CardActions>
             </Card>

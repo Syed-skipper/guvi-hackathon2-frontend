@@ -27,7 +27,11 @@ function GetProduct() {
     try {
       const response = await axios.delete(
         `${env.api}/products/delete/${id}`);
-      console.log(response);
+      if(response){
+        const response = await axios.get(`${env.api}/products/read`)
+        setProduct(response.data);
+
+      };
     } catch (error) {
       console.log(error);
     }

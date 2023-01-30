@@ -21,6 +21,10 @@ function AddProduct() {
       .required()
       .label("Product Name")
       .error(new Error("Please enter a product name")),
+      description: Joi.string()
+      .required()
+      .label("Product Name")
+      .error(new Error("Please enter a description")),
     price: Joi.number()
       .required()
       .label("Price")
@@ -37,6 +41,7 @@ function AddProduct() {
   const [formData, setFormData] = useState({
     producturl: "",
     productname: "",
+    description:'',
     price: "",
     quantity: "",
     type: "",
@@ -158,6 +163,24 @@ function AddProduct() {
                   width: 300,
                 }}
                 id="standard-basic"
+                label="Description"
+                required
+                variant="standard"
+                name="description"
+                value={formData.description}
+                onChange={(e) =>
+                  setFormData({ ...formData, description: e.target.value })
+                }
+              />
+            </div>
+            <br />
+            <div>
+              <TextField
+                className="textfield"
+                sx={{
+                  width: 300,
+                }}
+                id="standard-basic"
                 label="Quantity"
                 variant="standard"
                 required
@@ -180,10 +203,13 @@ function AddProduct() {
                   setFormData({ ...formData, type: e.target.value })
                 }
               >
-                <option selected>Select Type</option>
-                <option value="camera">Camera</option>
-                <option value="lens">Lens</option>
-                <option value="light">Light</option>
+                <option selected>Select Category</option>
+                <option value="prawns">Prawns</option>
+                <option value="seerfish">Seer Fish</option>
+                <option value="anchovy">Anchovy (Nethili)</option>
+                <option value="basafish">Basa Fish</option>
+                <option value="fushfinger">Fish Finger</option>
+                <option value="crablillipop">Crab Lollipop</option>
               </select>
             </div>
             <br />
