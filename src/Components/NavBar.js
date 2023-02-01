@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useContext} from "react";
 import axios from "axios";
 import { env } from "./Config";
 import AppBar from "@mui/material/AppBar";
@@ -12,15 +12,20 @@ import Menu from "@mui/material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import IconButton from "@mui/material/IconButton";
 import '../css/Navbar.css'
+import { SearchContext } from "./Context"; 
 
 function NavBar() {
   const navigate = useNavigate();
+  const { setSearchTerm } = useContext(SearchContext);
   const [initial, setinitial] = useState(0);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  function handleSearch(event) {
+    setSearchTerm(event.target.value);
+  }
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -79,6 +84,7 @@ function NavBar() {
               className="input"
               type="text"
               placeholder="Search"
+              onChange={handleSearch}
               style={{ width: "350px", height: "35px" }}
             />
             <Button

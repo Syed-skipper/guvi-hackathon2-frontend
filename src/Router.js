@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import HomePage from "./Components/HomePage";
 import SignIn from "./Components/SignInPage";
@@ -11,11 +11,15 @@ import Dashboard from "./Components/Dashboard";
 import Cart from "./Components/CartPage";
 import DeleteProduct from './Components/DeleteProduct'
 import Checkout from "./Components/CheckoutPage";
+import { SearchContext } from "./Components/Context";
 
 function RouterComponent() {
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <>
       <div>
+      <SearchContext.Provider value={{ searchTerm, setSearchTerm }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<SignIn />} />
@@ -31,6 +35,7 @@ function RouterComponent() {
           <Route path="/checkout" element={<Checkout/>}/>
         </Routes>
         </BrowserRouter>
+        </SearchContext.Provider>
       </div>
     </>
   );

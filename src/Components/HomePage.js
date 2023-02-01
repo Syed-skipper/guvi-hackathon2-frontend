@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
@@ -9,9 +9,11 @@ import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
 import { env } from "./Config";
 import NavBar from "./NavBar";
+import { SearchContext } from "./Context";
 
 function Homepage() {
   const [product, setProduct] = useState([]);
+  const { searchTerm } = useContext(SearchContext);
   const [cart, setCart] = useState({
     productname: "",
     producturl: "",
@@ -51,6 +53,14 @@ function Homepage() {
     }
     getProducts();
   }, []);
+  var filteredData;
+  if (searchTerm === "") {
+    filteredData = product;
+  } else {
+    filteredData = product.filter((item) =>
+      item.productname.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
 
   return (
     <>
@@ -60,7 +70,7 @@ function Homepage() {
         spacing={5}
         style={{ padding: "30px", justifyContent: "center" }}
       >
-        {product.map((row) => (
+        {filteredData.map((row) => (
           <Grid item key={row._id}>
             <Card
               sx={{ width: 350, height: 400 }}
@@ -95,19 +105,21 @@ function Homepage() {
                   <strong>Quantity : {row.quantity}</strong>
                   <br />
                 </Typography>
-                <div style={{display:'flex',justifyContent:'space-between'}}>
-                <Typography sx={{ mb: 1 }}>₹{row.price}</Typography>
-                <Button
-                  variant="contained"
-                  style={{
-                    width: "140px",
-                    marginLeft: "78px",
-                    fontSize: "12px",
-                  }}
-                  onClick={() => addcart({ row })}
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  Add to Cart
-                </Button>
+                  <Typography sx={{ mb: 1 }}>₹{row.price}</Typography>
+                  <Button
+                    variant="contained"
+                    style={{
+                      width: "140px",
+                      marginLeft: "78px",
+                      fontSize: "12px",
+                    }}
+                    onClick={() => addcart({ row })}
+                  >
+                    Add to Cart
+                  </Button>
                 </div>
               </CardContent>
               <CardActions></CardActions>

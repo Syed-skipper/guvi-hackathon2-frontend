@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
-import {env} from './Config'
+import { env } from './Config'
 
 function GetProduct() {
   const [product, setProduct] = useState([]);
@@ -19,15 +19,14 @@ function GetProduct() {
       });
       setProduct(response.data);
     }
-
     getProducts();
-  },[]);
+  }, []);
 
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(
         `${env.api}/products/delete/${id}`);
-      if(response){
+      if (response) {
         const response = await axios.get(`${env.api}/products/read`)
         setProduct(response.data);
 
@@ -82,7 +81,7 @@ function GetProduct() {
                   Delete
                 </Button>
               </CardContent>
-              
+
             </Card>
           </Grid>
         ))}
