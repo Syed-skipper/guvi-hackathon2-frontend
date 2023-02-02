@@ -1,17 +1,21 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../App.css";
 import NavBar from "./NavBar";
 import { env } from "./Config";
+import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { SearchContext } from "./Context";
 
 function Cart() {
   const [item, setItem] = useState([]);
+  const { setcartdata } = useContext(SearchContext);
+  const navigate = useNavigate();
   useEffect(() => {
     async function getProducts() {
       const id = localStorage.getItem("userid");
@@ -25,6 +29,9 @@ function Cart() {
     }
     getProducts();
   }, []);
+  useEffect(() => {
+    localStorage.setItem("cartData", JSON.stringify(item));
+  }, [item]);
   async function deletefromCart(row) {
     try {
       const response = await axios.delete(
@@ -41,7 +48,10 @@ function Cart() {
       console.log(error);
     }
   }
- 
+  const sendData = async (row) => {
+    setcartdata(row);
+    navigate("/checkout");
+  };
 
   return (
     <>
@@ -72,7 +82,9 @@ function Cart() {
               <CardActions
                 style={{ display: "flex", justifyContent: "space-around" }}
               >
-                <Button size="small" >Buy Now</Button>
+                <Button size="small" onClick={() => sendData(row)}>
+                  Buy Now
+                </Button>
                 <Button size="small" onClick={() => deletefromCart(row)}>
                   Remove
                 </Button>
