@@ -15,12 +15,12 @@ import { SearchContext } from "./Components/Context";
 
 function RouterComponent() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [cartdata, setcartdata] = useState("");
+  // const [cartdata, setcartdata] = useState("");
 
   return (
     <>
       <div>
-      <SearchContext.Provider value={{ searchTerm, setSearchTerm, cartdata, setcartdata }}>
+      <SearchContext.Provider value={{ searchTerm, setSearchTerm }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<SignIn />} />

@@ -74,7 +74,7 @@ function Homepage() {
           <Grid item key={row._id}>
             <Card
               sx={{ width: 350, height: 400 }}
-              style={{ border: "2px solid black" }}
+              // style={{ border: "2px solid black" }}
             >
               <CardMedia
                 component="img"
@@ -83,7 +83,6 @@ function Homepage() {
                 alt={row.productname}
                 style={{
                   objectFit: "contain",
-                  borderBottom: "2px solid black",
                 }}
               />
               <CardContent>
