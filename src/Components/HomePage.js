@@ -24,6 +24,7 @@ function Homepage() {
   const [initial, setinitial] = useState(0);
   const addcart = async (row) => {
     console.log(row);
+    setCart()
     cart.productname = row.row.productname;
     cart.producturl = row.row.producturl;
     cart.price = row.row.price;
