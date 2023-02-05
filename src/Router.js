@@ -10,7 +10,7 @@ import PasswordReset from "./Components/PasswordReset";
 import Dashboard from "./Components/Dashboard";
 import Cart from "./Components/CartPage";
 import DeleteProduct from './Components/DeleteProduct'
-import Checkout from "./Components/CheckoutPage";
+// import Checkout from "./Components/CheckoutPage";
 import { SearchContext } from "./Components/Context";
 
 function RouterComponent() {
@@ -33,7 +33,7 @@ function RouterComponent() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/deleteproduct" element={<DeleteProduct/>}/>
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout/>}/>
+          {/* <Route path="/checkout" element={<Checkout/>}/> */}
         </Routes>
         </BrowserRouter>
         </SearchContext.Provider>

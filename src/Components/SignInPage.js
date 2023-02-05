@@ -28,8 +28,8 @@ function LoginComponent() {
       navigate("/homepage");
     }
   }catch(error){
-    console.log(error.response.data)
-    setResult(error.response.data)
+    console.log(error)
+    setResult(error)
   }
     
   };
