@@ -24,7 +24,7 @@ function Homepage() {
   const [initial, setinitial] = useState(0);
   const addcart = async (row) => {
     console.log(row);
-    setCart()
+    setCart();
     cart.productname = row.row.productname;
     cart.producturl = row.row.producturl;
     cart.price = row.row.price;
@@ -75,7 +75,6 @@ function Homepage() {
           <Grid item key={row._id}>
             <Card
               sx={{ width: 350, height: 400 }}
-              // style={{ border: "2px solid black" }}
             >
               <CardMedia
                 component="img"
@@ -88,7 +87,6 @@ function Homepage() {
               />
               <CardContent>
                 <Typography
-                  gutterBottom
                   style={{
                     fontSize: "15px",
                     fontFamily: "lato",
@@ -100,15 +98,19 @@ function Homepage() {
                 >
                   <strong>{row.productname}</strong>
                 </Typography>
-                <Typography>{row.description}</Typography>
-                <Typography variant="body2" sx={{ fontSize: 13 }}>
-                  <strong>Quantity : {row.quantity}</strong>
+                <Typography style={{padding:'10px 10px 10px 0px', fontSize:'14px'}}>{row.description}</Typography>
+                <Typography variant="body2" sx={{ fontSize: 14 }}>
+                  <strong>Quantity : {row.quantity} Kg</strong>
                   <br />
                 </Typography>
                 <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: "65px",
+                  }}
                 >
-                  <Typography sx={{ mb: 1 }}>₹{row.price}</Typography>
+                  <Typography sx={{ mb: 1 }}>₹{row.price} (per kg)</Typography>
                   <Button
                     variant="contained"
                     style={{

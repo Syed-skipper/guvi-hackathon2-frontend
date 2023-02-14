@@ -1,3 +1,3 @@
 export const env = {
-    api : "https://guvi-backend.onrender.com"
+    api : "http://localhost:8080"
 }

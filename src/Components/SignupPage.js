@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { env } from "./Config";
+import '../App.css'
 
 function SignUpPage() {
   const [result, setResult] = useState({ msg: "" });
@@ -34,7 +35,7 @@ function SignUpPage() {
         navigate("/homepage");
       }
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error);
       setResult(error.response.data);
     }
   };
@@ -47,7 +48,7 @@ function SignUpPage() {
     <>
       <div className="bg-img">
         <div
-          className="contain"
+          className="container"
           style={{
             justifyContent: "center",
             padding: "30px",

@@ -195,6 +195,7 @@ function AddProduct() {
             <br />
             <div>
               <select
+                required
                 style={{ width: "300px" }}
                 class="form-select"
                 aria-label="Default select example"
